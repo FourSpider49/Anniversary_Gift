@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>For You ♡</title>
-<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Sacramento&family=Quicksand:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Sacramento&family=Quicksand:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
 :root{
   --bg:#fff8fa; --card:#fffdfd; --ink:#6b5a68; --soft:#b9a3b5;
@@ -99,11 +99,12 @@ body.locked{overflow:hidden;height:100%}
 .hugscene .pic img{width:100%;height:100%;object-fit:cover;display:block}
 .frame.photo img{object-position:50% 38%}
 .hugscene .pic img{object-position:50% 20%}
-.pano{margin:0 0 14vh}
-.panostick{position:sticky;top:0;height:100vh;display:flex;align-items:center;justify-content:center}
-.panostick .frame{margin:0;width:min(100%,calc((88vh - 100px)*.8))}
-.pano .ph{position:relative}
-.pano .pi{position:absolute;inset:0;opacity:0;will-change:transform,opacity}
+.eyecard{width:min(66%,300px);margin:28px 0 0 auto;rotate:4deg;border:3px solid var(--bord);border-radius:22px;background:var(--env);padding:12px 12px 14px;text-align:center}
+.eyes-mask{margin:0;font-family:'Quicksand',system-ui,sans-serif;font-weight:700;text-transform:uppercase;line-height:.92;letter-spacing:.02em;font-size:clamp(46px,14vw,80px);
+  color:transparent;-webkit-text-fill-color:transparent;background-image:var(--pic),linear-gradient(135deg,var(--pink),var(--lav));
+  background-size:190% auto,100% 100%;background-repeat:no-repeat;background-position:39% 100%,0 0;-webkit-background-clip:text;background-clip:text}
+.frame.photo.small{position:relative;width:58%;margin-left:6%;margin-right:auto;rotate:-3deg}
+.frame.photo.small::after{content:"♡";position:absolute;top:-14px;right:-10px;font-size:30px;color:var(--bord)}
 #music{position:fixed;top:calc(env(safe-area-inset-top,0px) + 12px);right:14px;z-index:9;width:44px;height:44px;border-radius:50%;
   border:3px solid transparent;font-size:18px;color:var(--ink);cursor:pointer;display:none;
   background:linear-gradient(var(--card),var(--card)) padding-box,linear-gradient(var(--bord),var(--bord)) border-box}
@@ -148,11 +149,11 @@ const CONFIG = {
     { type:"photo", src:IMG.us, caption:"my beauty" },
     { type:"message", heading:"Our story begins", text:"It began when I asked Sana if she could introduce me to a friend, and she told me about you. The most beautiful girl I have ever met. Then came our first chat, and it was clear that you were totally mad in love." },
     { type:"message", heading:"Because of you", text:"Now I feel it is really you alone because of whom our relationship exists. You are the most important person in my life, the one who has taught me about love, care, affection and every other beautiful quality of a human being." },
-    { type:"group", heading:"What I love most about you", sub:"tap a note to open it", notes:[
+    { type:"group", heading:"What I love most about you", sub:"tap a note to open it", eyes:{src:IMG.p2}, notes:[
       {t:"Your smile", p:"Your smile makes even my worst day better. One look at it and every heavy thought simply melts away, and I forget whatever was bothering me."},
       {t:"Your voice", p:"Your sweet voice calms everything that goes on inside me. Even when my mind is a storm, hearing you say my name brings me back to peace."},
       {t:"Your eyes", p:"The most beautiful thing I have ever seen in my life. On this very day a year ago, when I saw you in assembly, your eyes took my heart away completely, dear. I could write a whole book on your eyes, and still never finish."} ]},
-    { type:"pano", srcs:[IMG.p1,IMG.p2,IMG.p3], caption:"your smile" },
+    { type:"photo", src:IMG.p1, caption:"your smile" },
     { type:"group", heading:"Our best moments", sub:"tap a note to open it", notes:[
       {t:"Our first hug 🫂", p:"The intensity of that hug made everything calm, and its warmth melted away the coldness and every nervous feeling in my heart ❤️. When your heart touched my chest, it felt like becoming one human with two heartbeats, finally complete."},
       {t:"Made with you", p:"The best moments are only made because they are made with the best person, you, Nayonika ji. Every ordinary day turns special the moment you are in it."} ],
@@ -162,6 +163,7 @@ const CONFIG = {
       {t:"Afternoons", p:"Spending our afternoons watching K-dramas together, close and cozy, lost in our favourite stories."},
       {t:"Evenings", p:"Spending our evenings cooking snacks together, laughing in the kitchen and tasting everything we make."},
       {t:"Nights", p:"Listening to songs and watching the stars and the moon together, then falling asleep cuddled up, till the next cute morning."} ]},
+    { type:"photo", small:true, src:IMG.p3, caption:"my forever" },
     { type:"seal", icon:"♾️", text:"Our bond remains forever." },
     { type:"quote", text:"Every love story is good, but ours is perfect.", by:"The story: From Strangers to Love Birds 🦚🕊️" }
   ],
@@ -184,10 +186,10 @@ const esc=s=>String(s).replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[
 const note=n=>`<button class="note" aria-expanded="false"><span class="t script">${esc(n.t)}<b>♡</b></span><span class="b"><span><span class="p">${esc(n.p)}</span></span></span></button>`;
 const COUPLE=`<svg viewBox="0 0 200 200" fill="none" stroke="#e58fb0" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" role="img" aria-label="A cute couple hugging"><path fill="var(--env)" d="M68 86Q58 92 56 130L54 180H102L100 130Q100 94 92 86Z"/><path fill="var(--env)" d="M106 76Q94 82 94 130V180H146V130Q146 82 134 76Z"/><path d="M92 106Q118 130 140 110"/><circle cx="140" cy="110" r="3.2" fill="var(--env)"/><path d="M102 102Q80 126 60 110"/><circle cx="60" cy="110" r="3.2" fill="var(--env)"/><circle cx="80" cy="68" r="17" fill="var(--env)"/><circle cx="72" cy="48" r="6" fill="var(--env)"/><path d="M64 64Q66 50 82 50Q94 50 97 62"/><circle cx="118" cy="58" r="19" fill="var(--env)"/><path d="M100 54Q104 38 120 39Q134 40 136 56"/><path d="M72 70q3 3 6 0M86 70q3 3 6 0M78 77q4 3 8 0M108 60q3 3 6 0M122 60q3 3 6 0M114 67q4 3 8 0"/><g fill="#e58fb0" stroke="none" opacity=".4"><ellipse cx="70" cy="76" rx="4" ry="2.5"/><ellipse cx="92" cy="76" rx="4" ry="2.5"/><ellipse cx="105" cy="66" rx="4" ry="2.5"/><ellipse cx="131" cy="66" rx="4" ry="2.5"/></g><g fill="#e58fb0" stroke="none"><text x="146" y="38" font-size="16">♡</text><text x="34" y="46" font-size="11">♡</text><text x="160" y="64" font-size="10">♡</text></g></svg>`;
 const hugScene=c=>`<div class="hugscene"><svg class="arrow" viewBox="0 0 340 430" aria-hidden="true"><defs><marker id="ah" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M1 1L8 5L1 9" fill="none" stroke="#e58fb0" stroke-width="1.6" stroke-linecap="round"/></marker></defs><path d="M122 96C30 66 14 190 88 226" fill="none" stroke="#e58fb0" stroke-width="2.4" stroke-linecap="round" stroke-dasharray="1 9" marker-end="url(#ah)"/></svg><div class="art">${COUPLE}<div class="who hand">${esc(c.him)} (${esc(c.nick)}) &amp; ${esc(c.her)}</div></div><div class="pic">${c.photo?`<img src="${c.photo}" alt="">`:'<span class="hand">♡ her photo ♡</span>'}</div></div>`;
+const eyesCard=e=>`<div class="eyecard"><div class="eyes-mask" role="img" aria-label="your eyes" style="--pic:url('${e.src}')">your<br>eyes</div></div>`;
 const build=it=>{
-  if(it.type==='photo')return `<div class="frame photo"><div class="ph">${it.src?`<img src="${it.src}" alt="">`:'♡ photo ♡'}</div><div class="cap hand">${esc(it.caption||'')}</div></div>`;
-  if(it.type==='pano')return `<div class="pano" style="height:${it.srcs.length*85+40}vh"><div class="panostick"><div class="frame photo"><div class="ph">${it.srcs.map(u=>`<img class="pi" src="${u}" alt="">`).join('')}</div><div class="cap hand">${esc(it.caption||'')}</div></div></div></div>`;
-  if(it.type==='group')return `<div class="grp"><h2 class="script">${esc(it.heading)}</h2><div class="sub hand">${esc(it.sub||'')}</div>${it.notes.map(note).join('')}${it.scene?hugScene(it.scene):''}</div>`;
+  if(it.type==='photo')return `<div class="frame photo${it.small?' small':''}"><div class="ph">${it.src?`<img src="${it.src}" alt="">`:'♡ photo ♡'}</div><div class="cap hand">${esc(it.caption||'')}</div></div>`;
+  if(it.type==='group')return `<div class="grp"><h2 class="script">${esc(it.heading)}</h2><div class="sub hand">${esc(it.sub||'')}</div>${it.notes.map(note).join('')}${it.scene?hugScene(it.scene):''}${it.eyes?eyesCard(it.eyes):''}</div>`;
   if(it.type==='seal')return `<div class="frame"><div class="big">${it.icon}</div><p class="hand" style="font-size:30px">${esc(it.text)}</p></div>`;
   if(it.type==='quote')return `<div class="frame"><h2 class="script" style="font-size:clamp(34px,9vw,48px)">${esc(it.text)}</h2><p class="hand" style="font-size:24px">${esc(it.by)}</p></div>`;
   return `<div class="frame"><h2 class="script">${esc(it.heading)}</h2><p>${esc(it.text)}</p></div>`;
@@ -215,13 +217,12 @@ function openIt(){
 mbtn.onclick=()=>{if(bgm.paused){bgm.play();mbtn.classList.add('playing')}else{bgm.pause();mbtn.classList.remove('playing')}};
 
 
-const panos=[...document.querySelectorAll('.pano')];
-function pano(){panos.forEach(el=>{const im=el.querySelectorAll('.pi'),n=im.length,r=el.getBoundingClientRect(),t=r.height-innerHeight;
-  const seg=Math.max(0,Math.min(1,t>0?-r.top/t:0))*n;
-  im.forEach((e,i)=>{const c=i+.5;let o=seg<c-.8?0:seg<c+.2?1:seg<c+.5?1-(seg-c-.2)/.3:0;if(i===n-1&&seg>=c-.8)o=1;
-    e.style.opacity=o;e.style.zIndex=n-i;e.style.transform=`translateX(${(c-seg)*8}%) scale(1.18)`})})}
-addEventListener('scroll',pano,{passive:true});addEventListener('resize',pano);
-function observe(){pano();
+const eyesEl=document.querySelector('.eyes-mask');
+function eyes(){if(!eyesEl)return;const r=eyesEl.getBoundingClientRect(),vh=innerHeight;
+  const p=Math.max(0,Math.min(1,(vh*.9-r.top)/(vh*.6)));
+  eyesEl.style.backgroundPosition=`39% ${100-p*68}%, 0 0`}
+addEventListener('scroll',eyes,{passive:true});addEventListener('resize',eyes);
+function observe(){eyes();
   const io=new IntersectionObserver(es=>es.forEach(e=>{e.target.classList.toggle('in',e.isIntersecting)}),{threshold:.25});
   document.querySelectorAll('.frame,.grp').forEach(f=>io.observe(f));
 }
